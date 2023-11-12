@@ -1,6 +1,6 @@
 # Kutils - a C++20 utilties library
-[![Actions Status](https://github.com/KYLChiu/Kutils/workflows/Cpp-Ubuntu/badge.svg)](https://github.com/KYLChiu/Kutils/actions)
-[![Actions Status](https://github.com/KYLChiu/Kutils/workflows/Clang-Format/badge.svg)](https://github.com/KYLChiu/Kutils/actions)
+[![Actions Status](https://github.com/KYLChiu/Kutils/workflows/Ubuntu/badge.svg)](https://github.com/KYLChiu/Kutils/actions)
+[![Actions Status](https://github.com/KYLChiu/Kutils/workflows/Format/badge.svg)](https://github.com/KYLChiu/Kutils/actions)
 
 A header only library with the following utilities:
 
