@@ -5,6 +5,8 @@
 #include <thread>
 #include "src/concurrency/caching/async_cache_in_memory.hpp"
 
+using namespace kcu;
+
 TEST(AsyncCacheInMemory, RetrievesValueAsync) {
     async_cache_in_memory<int, std::string> async_cache;
 

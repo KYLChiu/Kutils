@@ -1,5 +1,7 @@
 #include "src/concurrency/caching/async_cache_interface.hpp"
 
+namespace kcu {
+
 template <typename K, typename V>
 class async_cache_in_memory : public async_cache_interface<K, V> {
    public:
@@ -29,3 +31,5 @@ class async_cache_in_memory : public async_cache_interface<K, V> {
     std::unordered_map<K, std::shared_future<V>> cache_;
     std::mutex mutex_;
 };
+
+}  // namespace kcu

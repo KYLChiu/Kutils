@@ -1,6 +1,8 @@
 #include "src/memory/pool_allocator.hpp"
 #include <gtest/gtest.h>
 
+using namespace kcu;
+
 TEST(PoolAllocatorTest, AllocatesAndDeallocatesMultiple) {
     constexpr unsigned pool_size = 1024;
     memory_pool<pool_size> mp;

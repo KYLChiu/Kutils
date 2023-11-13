@@ -2,6 +2,8 @@
 #include <exception>
 #include <iostream>
 
+namespace kcu {
+
 template <std::size_t PoolSize>
 class memory_pool {
    public:
@@ -116,3 +118,5 @@ class pool_allocator {
    private:
     memory_pool<PoolSize>& memory_pool_;
 };
+
+}  // namespace kcu

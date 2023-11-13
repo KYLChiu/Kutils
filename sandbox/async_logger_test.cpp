@@ -5,6 +5,8 @@
 #include <iostream>
 #include <mutex>
 
+using namespace kcu;
+
 // Test logger implementation for capturing log messages
 class test_logger : public async_logger {
    public:

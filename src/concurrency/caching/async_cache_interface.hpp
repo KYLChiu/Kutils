@@ -1,6 +1,8 @@
 #include <functional>
 #include <future>
 
+namespace kcu {
+
 template <typename K, typename V>
 class async_cache_interface {
    public:
@@ -15,3 +17,5 @@ class async_cache_interface {
 
     // Cache purging: TODO
 };
+
+}  // namespace kcu

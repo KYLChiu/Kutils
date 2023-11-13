@@ -6,6 +6,8 @@
 #include <queue>
 #include <thread>
 
+namespace kcu {
+
 class logger_interface {
    public:
     virtual ~logger_interface() = default;
@@ -70,3 +72,5 @@ class async_logger : public logger_interface {
     mutable std::mutex mutex_;
     bool stop_worker_ = false;
 };
+
+}  // namespace kcu
