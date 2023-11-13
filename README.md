@@ -11,3 +11,8 @@ A header only library with the following utilities:
 
 ## Caching
 * Asynchronous caching interface (in-memory implementation)
+
+## Memory
+* Memory arena 
+* Pool allocator (STL container compatible)
+

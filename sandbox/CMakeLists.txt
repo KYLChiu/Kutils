@@ -19,6 +19,7 @@ add_executable(
   data_structures_test.cpp
   async_logger_test.cpp
   async_caching_test.cpp
+  pool_allocator_test.cpp
 )
 
 target_link_libraries(
