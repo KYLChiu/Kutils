@@ -5,18 +5,18 @@
 #include <memory>
 #include <type_traits>
 
-#ifdef __cpp_lib_hardware_interference_size
-using std::hardware_destructive_interference_size;
-#else
-constexpr std::size_t hardware_destructive_interference_size = 64;
-#endif
-
 namespace kcu {
 
 // Single producer single consumer lock free queue using a ring-buffer.
 // TODO: allow other allocators
 template <typename T>
 class spsc_queue {
+#ifdef __cpp_lib_hardware_interference_size
+    using std::hardware_destructive_interference_size;
+#else
+    constexpr std::size_t hardware_destructive_interference_size = 64;
+#endif
+
     using alloc_t = std::allocator<T>;
 
    public:
@@ -44,6 +44,7 @@ class spsc_queue {
 
     void pop() noexcept(std::is_nothrow_destructible_v<T>) {
         const auto read_idx = read_idx_.load(std::memory_order_relaxed);
+        // Unsigned int automatically wraps around when overflowing
         const std::size_t new_read_idx = read_idx + 1;
         ring_buffer_[read_idx].~T();
         read_idx_.store(new_read_idx, std::memory_order_release);
@@ -56,9 +57,8 @@ class spsc_queue {
 
     std::size_t size() const noexcept {
         long diff = write_idx_.load(std::memory_order_acquire) -
-               read_idx_.load(std::memory_order_acquire);
-        if (diff < 0)
-            diff += capacity_;
+                    read_idx_.load(std::memory_order_acquire);
+        if (diff < 0) diff += capacity_;
         return static_cast<std::size_t>(diff);
     }
 

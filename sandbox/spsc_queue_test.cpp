@@ -18,7 +18,7 @@ TEST(SPSCQueue, Basic) {
 
     // Consumer
     EXPECT_EQ(q.front()->x, 1);
-    EXPECT_EQ(q.front()->y, "Testing..."); 
+    EXPECT_EQ(q.front()->y, "Testing...");
     EXPECT_EQ(q.size(), 2);
 
     q.pop();
