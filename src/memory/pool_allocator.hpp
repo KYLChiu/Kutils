@@ -39,7 +39,6 @@ class memory_pool {
 
         block* deallocated_block = reinterpret_cast<block*>(
             reinterpret_cast<char*>(ptr) - sizeof(block));
-        std::cout << "Deallocating..." << &deallocated_block << std::endl;
 
         // Add the deallocated block back to the free list
         deallocated_block->next = free_list_;
@@ -94,11 +93,6 @@ template <typename T, std::size_t PoolSize>
 class pool_allocator {
    public:
     using value_type = T;
-
-    template <typename U>
-    struct rebind {
-        using other = pool_allocator<U, PoolSize>;
-    };
 
     pool_allocator(memory_pool<PoolSize>& memory_pool)
         : memory_pool_(memory_pool) {}
