@@ -20,6 +20,7 @@ add_executable(
   async_logger_test.cpp
   async_caching_test.cpp
   pool_allocator_test.cpp
+  spsc_queue_test.cpp
 )
 
 target_link_libraries(

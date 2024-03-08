@@ -94,6 +94,11 @@ class pool_allocator {
    public:
     using value_type = T;
 
+    template <typename U>
+    struct rebind {
+        using other = pool_allocator<U, PoolSize>;
+    };
+
     pool_allocator(memory_pool<PoolSize>& memory_pool)
         : memory_pool_(memory_pool) {}
 
