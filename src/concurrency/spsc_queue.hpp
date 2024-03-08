@@ -11,12 +11,6 @@ namespace kcu {
 // TODO: allow other allocators
 template <typename T>
 class spsc_queue {
-#ifdef __cpp_lib_hardware_interference_size
-    using std::hardware_destructive_interference_size;
-#else
-    constexpr std::size_t hardware_destructive_interference_size = 64;
-#endif
-
     using alloc_t = std::allocator<T>;
 
    public:
@@ -71,6 +65,13 @@ class spsc_queue {
     std::size_t capacity_;
     std::allocator<T> alloc_;
     T* ring_buffer_;
+
+#ifdef __cpp_lib_hardware_interference_size
+    static constexpr std::size_t hardware_destructive_interference_size =
+        std::hardware_destructive_interference_size;
+#else
+    static constexpr std::size_t hardware_destructive_interference_size = 64;
+#endif
 
     alignas(hardware_destructive_interference_size)
         std::atomic<std::size_t> write_idx_;
