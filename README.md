@@ -8,6 +8,7 @@ A header only library with the following utilities:
 * Future chaining (similar to JavaScript's promise .then())
 * Thread pool 
 * Asynchronous logging
+* Single producer single consumer (SPSC) lock-free queue
 
 ## Caching
 * Asynchronous caching interface (in-memory implementation)
