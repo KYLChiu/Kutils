@@ -26,8 +26,7 @@ namespace detail {
        public:
         using value_type = T;
 
-        auto then(concepts::success_callback<value_type> auto on_success,
-                  std::launch policy = std::launch::async) {
+        auto then(concepts::success_callback<value_type> auto on_success) {
             auto continuation = [this, on_success = std::move(on_success)]() {
                 if constexpr (! std::is_same_v<value_type, void>) {
                     return on_success(get());
@@ -36,12 +35,11 @@ namespace detail {
                     return on_success();
                 }
             };
-            return run_continuation(policy, std::move(continuation));
+            return run_continuation(std::move(continuation));
         }
 
         auto then(concepts::success_callback<value_type> auto on_success,
-                  concepts::failed_callback auto on_failure,
-                  std::launch policy = std::launch::async) {
+                  concepts::failed_callback auto on_failure) {
             auto continuation = [this, on_success = std::move(on_success),
                                  on_failure = std::move(on_failure)]() {
                 try {
@@ -55,7 +53,7 @@ namespace detail {
                     return on_failure(std::current_exception());
                 }
             };
-            return run_continuation(policy, std::move(continuation));
+            return run_continuation(std::move(continuation));
         }
 
         auto get() {
@@ -64,13 +62,13 @@ namespace detail {
 
        private:
         template <typename F>
-        auto run_continuation(std::launch policy, F&& f) {
+        auto run_continuation(F&& f) {
             if constexpr (std::is_invocable_v<F, value_type>) {
                 using result_t = std::invoke_result_t<F, value_type>;
-                return Future<result_t>(std::async(policy, std::move(f)));
+                return Future<result_t>(std::async(std::forward<F>(f)));
             } else {
                 using result_t = std::invoke_result_t<F>;
-                return Future<result_t>(std::async(policy, std::move(f)));
+                return Future<result_t>(std::async(std::forward<F>(f)));
             }
         }
     };
